@@ -29,12 +29,12 @@ class Province extends Model
     {
         $folder = 'indonesia-logo/';
         $id = $this->getAttributeValue('id');
-        $arr_glob = glob(App::publicPath().'/'.$folder.$id.'.*');
+        $arr_glob = glob(App::publicPath() . '/' . $folder . $id . '.*');
 
         if (count($arr_glob) == 1) {
             $logo_name = basename($arr_glob[0]);
 
-            return App::url($folder.$logo_name);
+            return App::url($folder . $logo_name);
         }
     }
 }

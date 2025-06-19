@@ -12,8 +12,8 @@ class CitiesSeeder extends Seeder
     public function run()
     {
         $now = Carbon::now();
-        $Csv = new CsvtoArray();
-        $file = __DIR__.'/../../resources/csv/cities.csv';
+        $Csv = new CsvtoArray;
+        $file = __DIR__ . '/../../resources/csv/cities.csv';
         $header = ['code', 'province_code', 'name'];
         $data = $Csv->csv_to_array($file, $header);
         $data = array_map(function ($arr) use ($now) {
@@ -22,7 +22,7 @@ class CitiesSeeder extends Seeder
 
         $collection = collect($data);
         foreach ($collection->chunk(50) as $chunk) {
-            DB::table(App::config('indonesia.table_prefix').'cities')->insertOrIgnore($chunk->toArray());
+            DB::table(App::config('indonesia.table_prefix') . 'cities')->insertOrIgnore($chunk->toArray());
         }
     }
 }

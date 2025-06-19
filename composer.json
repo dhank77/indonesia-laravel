@@ -11,10 +11,7 @@
     "autoload": {
         "psr-4": {
             "Hitech\\IndonesiaLaravel\\": "src/"
-        },
-        "files": [
-            "src/Helpers/PathHelper.php"
-        ]
+        }
     },
     "extra": {
         "laravel": {
@@ -32,6 +29,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
-        "phpunit/phpunit": "^11.5"
+        "phpunit/phpunit": "^11.5",
+        "tightenco/duster": "^3.2"
     }
 }

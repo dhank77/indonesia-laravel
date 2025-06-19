@@ -1,16 +1,28 @@
 <?php
 
 return [
+    /*
+    * Prefix table
+    *
+    */
     'table_prefix' => 'indonesia_',
-    'route' => [
-        'enabled' => false,
-        'middleware' => ['web', 'auth'],
-        'prefix' => 'indonesia',
+
+    /*
+    * Gunakan ID untuk seluruh data-data dengan bahasa indonesia
+    * Gunakan EN untuk seluruh data-data dengan bahasa inggris
+    */
+    'pattern' => 'ID',
+
+    'province' => [
+        'enabled' => true,
     ],
-    'view' => [
-        'layout' => 'ui::layouts.app',
+    'city' => [
+        'enabled' => true,
     ],
-    'menu' => [
-        'enabled' => false,
+    'district' => [
+        'enabled' => true,
+    ],
+    'village' => [
+        'enabled' => true,
     ],
 ];

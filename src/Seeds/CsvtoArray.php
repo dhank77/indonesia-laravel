@@ -7,7 +7,7 @@ class CsvtoArray
     public function csv_to_array($filename, $header)
     {
         $delimiter = ',';
-        if (!file_exists($filename) || !is_readable($filename)) {
+        if (! file_exists($filename) || ! is_readable($filename)) {
             return false;
         }
 

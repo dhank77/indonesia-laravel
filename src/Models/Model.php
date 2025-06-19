@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\App;
 
 class Model extends \Illuminate\Database\Eloquent\Model
 {
+    public $timestamps = false;
     protected $keyType = 'string';
 
     protected $searchableColumns = ['code', 'name'];
@@ -16,13 +17,11 @@ class Model extends \Illuminate\Database\Eloquent\Model
 
     protected $guarded = [];
 
-    public $timestamps = false;
-
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
 
-        $this->table = App::config('indonesia.table_prefix').$this->table;
+        $this->table = App::config('indonesia.table_prefix') . $this->table;
     }
 
     public function scopeSearch($query, $keyword)
