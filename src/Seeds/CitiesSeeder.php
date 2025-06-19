@@ -1,6 +1,6 @@
 <?php
 
-namespace IndonesiaLaravel\Seeds;
+namespace Hitech\IndonesiaLaravel\Seeds;
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -14,7 +14,11 @@ class CitiesSeeder extends Seeder
         $now = Carbon::now();
         $Csv = new CsvtoArray;
         $file = __DIR__ . '/../../resources/csv/cities.csv';
-        $header = ['code', 'province_code', 'name'];
+        if (config('indonesia.pattern') === 'ID') {
+            $header = ['kode', 'kode_provinsi', 'nama'];
+        } else {
+            $header = ['code', 'province_code', 'name'];
+        }
         $data = $Csv->csv_to_array($file, $header);
         $data = array_map(function ($arr) use ($now) {
             return $arr + ['created_at' => $now, 'updated_at' => $now];
@@ -22,7 +26,8 @@ class CitiesSeeder extends Seeder
 
         $collection = collect($data);
         foreach ($collection->chunk(50) as $chunk) {
-            DB::table(App::config('indonesia.table_prefix') . 'cities')->insertOrIgnore($chunk->toArray());
+            $tableName = config('indonesia.table_prefix') . (config('indonesia.pattern') === 'ID' ? 'kabupaten' : 'cities');
+            DB::table($tableName)->insertOrIgnore($chunk->toArray());
         }
     }
 }

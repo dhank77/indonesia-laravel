@@ -1,6 +1,6 @@
 <?php
 
-namespace IndonesiaLaravel\Seeds;
+namespace Hitech\IndonesiaLaravel\Seeds;
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -14,12 +14,17 @@ class ProvincesSeeder extends Seeder
         $now = Carbon::now();
         $csv = new CsvtoArray;
         $file = __DIR__ . '/../../resources/csv/provinces.csv';
-        $header = ['code', 'name'];
+        if (config('indonesia.pattern') === 'ID') {
+            $header = ['kode', 'nama'];
+        } else {
+            $header = ['code', 'name'];
+        }
         $data = $csv->csv_to_array($file, $header);
         $data = array_map(function ($arr) use ($now) {
             return $arr + ['created_at' => $now, 'updated_at' => $now];
         }, $data);
 
-        DB::table(App::config('indonesia.table_prefix') . 'provinces')->insertOrIgnore($data);
+        $tableName = config('indonesia.table_prefix') . (config('indonesia.pattern') === 'ID' ? 'provinsi' : 'provinces');
+        DB::table($tableName)->insertOrIgnore($data);
     }
 }

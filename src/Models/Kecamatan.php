@@ -1,6 +1,6 @@
 <?php
 
-namespace IndonesiaLaravel\Models;
+namespace Hitech\IndonesiaLaravel\Models;
 
 class Kecamatan extends District
 {

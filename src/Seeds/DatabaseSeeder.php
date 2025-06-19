@@ -1,13 +1,13 @@
 <?php
 
-namespace IndonesiaLaravel\Seeds;
+namespace Hitech\IndonesiaLaravel\Seeds;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
-use IndonesiaLaravel\Models\Kabupaten;
-use IndonesiaLaravel\Models\Kecamatan;
-use IndonesiaLaravel\Models\Kelurahan;
-use IndonesiaLaravel\Models\Provinsi;
+use Hitech\IndonesiaLaravel\Models\Kabupaten;
+use Hitech\IndonesiaLaravel\Models\Kecamatan;
+use Hitech\IndonesiaLaravel\Models\Kelurahan;
+use Hitech\IndonesiaLaravel\Models\Provinsi;
 
 class DatabaseSeeder extends Seeder
 {

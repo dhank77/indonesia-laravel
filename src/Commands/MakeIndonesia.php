@@ -38,7 +38,7 @@ class MakeIndonesia extends Command
      */
     public function handle()
     {
-        Artisan::call('db:seed', ['--class' => 'IndonesiaLaravel\Seeds\DatabaseSeeder', '--force' => true]);
-        $this->info('Seeded: IndonesiaLaravel\Seeds\IndonesiaSeeder');
+        Artisan::call('db:seed', ['--class' => 'Hitech\\IndonesiaLaravel\\Seeds\\DatabaseSeeder', '--force' => true]);
+        $this->info('Seeded: Hitech\\IndonesiaLaravel\\Seeds\\DatabaseSeeder');
     }
 }

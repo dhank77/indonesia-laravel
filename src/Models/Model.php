@@ -1,6 +1,6 @@
 <?php
 
-namespace IndonesiaLaravel\Models;
+namespace Hitech\IndonesiaLaravel\Models;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Facades\App;
@@ -23,7 +23,7 @@ class Model extends EloquentModel
     {
         parent::__construct($attributes);
 
-        $this->table = App::config('indonesia.table_prefix') . $this->table;
+        $this->table = config('indonesia.table_prefix') . $this->table;
     }
 
     public function scopeSearch($query, $keyword)

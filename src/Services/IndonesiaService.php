@@ -3,10 +3,10 @@
 namespace Hitech\IndonesiaLaravel\Services;
 
 use Illuminate\Database\Eloquent\Collection;
-use IndonesiaLaravel\Models\City;
-use IndonesiaLaravel\Models\District;
-use IndonesiaLaravel\Models\Province;
-use IndonesiaLaravel\Models\Village;
+use Hitech\IndonesiaLaravel\Models\City;
+use Hitech\IndonesiaLaravel\Models\District;
+use Hitech\IndonesiaLaravel\Models\Province;
+use Hitech\IndonesiaLaravel\Models\Village;
 
 class IndonesiaService
 {

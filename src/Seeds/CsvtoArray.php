@@ -1,6 +1,6 @@
 <?php
 
-namespace IndonesiaLaravel\Seeds;
+namespace Hitech\IndonesiaLaravel\Seeds;
 
 class CsvtoArray
 {
