@@ -1,0 +1,34 @@
+<?php
+
+namespace IndonesiaLaravel\Models;
+
+use Illuminate\Support\Facades\App;
+
+class Model extends \Illuminate\Database\Eloquent\Model
+{
+    protected $keyType = 'string';
+
+    protected $searchableColumns = ['code', 'name'];
+
+    protected $casts = [
+        'meta' => 'array',
+    ];
+
+    protected $guarded = [];
+
+    public $timestamps = false;
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->table = App::config('indonesia.table_prefix').$this->table;
+    }
+
+    public function scopeSearch($query, $keyword)
+    {
+        if ($keyword && $this->searchableColumns) {
+            $query->whereLike($this->searchableColumns, $keyword);
+        }
+    }
+}
