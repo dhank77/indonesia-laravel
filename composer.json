@@ -2,6 +2,7 @@
     "name": "hitech/indonesia-laravel",
     "description": "Indonesia Laravel - Data terbaru daerah-daerah di indonesia termasuk 38 provinsi.",
     "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "dhank77",
