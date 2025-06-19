@@ -2,12 +2,12 @@
 
 namespace Hitech\IndonesiaLaravel\Seeds;
 
+use Hitech\IndonesiaLaravel\Models\City;
+use Hitech\IndonesiaLaravel\Models\District;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
-use Hitech\IndonesiaLaravel\Models\Kabupaten;
-use Hitech\IndonesiaLaravel\Models\Kecamatan;
-use Hitech\IndonesiaLaravel\Models\Kelurahan;
-use Hitech\IndonesiaLaravel\Models\Provinsi;
+use Hitech\IndonesiaLaravel\Models\Province;
+use Hitech\IndonesiaLaravel\Models\Village;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,10 +30,10 @@ class DatabaseSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
 
-        Kelurahan::truncate();
-        Kecamatan::truncate();
-        Kabupaten::truncate();
-        Provinsi::truncate();
+        Village::truncate();
+        District::truncate();
+        City::truncate();
+        Province::truncate();
 
         Schema::disableForeignKeyConstraints();
     }

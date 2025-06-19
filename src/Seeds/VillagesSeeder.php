@@ -26,7 +26,7 @@ class VillagesSeeder extends Seeder
 
         $collection = collect($data);
         foreach ($collection->chunk(50) as $chunk) {
-            $tableName = config('indonesia.table_prefix') . (config('indonesia.pattern') === 'ID' ? 'desa' : 'villages');
+            $tableName = config('indonesia.table_prefix') . (config('indonesia.pattern') === 'ID' ? 'kelurahan' : 'villages');
             DB::table($tableName)->insertOrIgnore($chunk->toArray());
         }
     }
