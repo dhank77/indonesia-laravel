@@ -11,6 +11,17 @@ use Hitech\IndonesiaLaravel\Models\Village;
 class IndonesiaService
 {
     protected $search;
+    protected $provinceCodeName;
+    protected $cityCodeName;
+    protected $districtCodeName;
+    protected $villageCodeName;
+
+    public function __construct() {
+        $this->provinceCodeName = config('indonesia.pattern') === 'ID' ? 'kode_provinsi' : 'province_code';
+        $this->cityCodeName = config('indonesia.pattern') === 'ID' ? 'kode_kabupaten' : 'city_code';
+        $this->districtCodeName = config('indonesia.pattern') === 'ID' ? 'kode_kecamatan' : 'district_code';
+        $this->villageCodeName = config('indonesia.pattern') === 'ID' ? 'kode_desa' : 'village_code';
+    }
 
     public function search($location)
     {
@@ -207,17 +218,17 @@ class IndonesiaService
 
     public function findCitiesByProvinceCode(?string $provinceCode = ''): Collection
     {
-        return City::where('province_code', $provinceCode)->get();
+        return City::where($this->provinceCodeName, $provinceCode)->get();
     }
 
     public function findDistrictsByCityCode(?string $cityCode = ''): Collection
     {
-        return District::where('city_code', $cityCode)->get();
+        return District::where($this->cityCodeName, $cityCode)->get();
     }
 
     public function findVillagesByDistrictCode(?string $districtCode = ''): Collection
     {
-        return Village::where('district_code', $districtCode)->get();
+        return Village::where($this->districtCodeName, $districtCode)->get();
     }
 
     private function loadRelation($object, $relation, $belongsTo = false)
