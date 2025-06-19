@@ -7,13 +7,13 @@ class City extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        
+
         $this->table = config('indonesia.table_prefix') . (config('indonesia.pattern') === 'ID' ? 'kabupaten' : 'cities');
-        
+
         $codeColumn = config('indonesia.pattern') === 'ID' ? 'kode' : 'code';
         $nameColumn = config('indonesia.pattern') === 'ID' ? 'nama' : 'name';
         $provinceNameColumn = config('indonesia.pattern') === 'ID' ? 'province.nama' : 'province.name';
-        
+
         $this->searchableColumns = [$codeColumn, $nameColumn, $provinceNameColumn];
     }
 
@@ -21,7 +21,7 @@ class City extends Model
     {
         $codeColumn = config('indonesia.pattern') === 'ID' ? 'kode' : 'code';
         $provinceCodeColumn = config('indonesia.pattern') === 'ID' ? 'provinsi_kode' : 'province_code';
-        
+
         return $this->belongsTo('Hitech\\IndonesiaLaravel\\Models\\Province', $provinceCodeColumn, $codeColumn);
     }
 
@@ -29,7 +29,7 @@ class City extends Model
     {
         $codeColumn = config('indonesia.pattern') === 'ID' ? 'kode' : 'code';
         $cityCodeColumn = config('indonesia.pattern') === 'ID' ? 'kabupaten_kode' : 'city_code';
-        
+
         return $this->hasMany('Hitech\\IndonesiaLaravel\\Models\\District', $cityCodeColumn, $codeColumn);
     }
 
@@ -52,6 +52,7 @@ class City extends Model
     public function getProvinceNameAttribute()
     {
         $nameColumn = config('indonesia.pattern') === 'ID' ? 'nama' : 'name';
+
         return $this->province->{$nameColumn};
     }
 
@@ -63,6 +64,7 @@ class City extends Model
 
         if (count($arr_glob) == 1) {
             $logo_name = basename($arr_glob[0]);
+
             return url($folder . $logo_name);
         }
     }

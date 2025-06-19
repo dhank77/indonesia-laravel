@@ -4,10 +4,10 @@ namespace Hitech\IndonesiaLaravel\Seeds;
 
 use Hitech\IndonesiaLaravel\Models\City;
 use Hitech\IndonesiaLaravel\Models\District;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Schema;
 use Hitech\IndonesiaLaravel\Models\Province;
 use Hitech\IndonesiaLaravel\Models\Village;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {

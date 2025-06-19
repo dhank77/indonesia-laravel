@@ -2,11 +2,11 @@
 
 namespace Hitech\IndonesiaLaravel\Services;
 
-use Illuminate\Database\Eloquent\Collection;
 use Hitech\IndonesiaLaravel\Models\City;
 use Hitech\IndonesiaLaravel\Models\District;
 use Hitech\IndonesiaLaravel\Models\Province;
 use Hitech\IndonesiaLaravel\Models\Village;
+use Illuminate\Database\Eloquent\Collection;
 
 class IndonesiaService
 {
@@ -16,7 +16,8 @@ class IndonesiaService
     protected $districtCodeName;
     protected $villageCodeName;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->provinceCodeName = config('indonesia.pattern') === 'ID' ? 'kode_provinsi' : 'province_code';
         $this->cityCodeName = config('indonesia.pattern') === 'ID' ? 'kode_kabupaten' : 'city_code';
         $this->districtCodeName = config('indonesia.pattern') === 'ID' ? 'kode_kecamatan' : 'district_code';

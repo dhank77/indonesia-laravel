@@ -7,12 +7,12 @@ class Province extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        
+
         $this->table = config('indonesia.table_prefix') . (config('indonesia.pattern') === 'ID' ? 'provinsi' : 'provinces');
-        
+
         $codeColumn = config('indonesia.pattern') === 'ID' ? 'kode' : 'code';
         $nameColumn = config('indonesia.pattern') === 'ID' ? 'nama' : 'name';
-        
+
         $this->searchableColumns = [$codeColumn, $nameColumn];
     }
 
@@ -45,6 +45,7 @@ class Province extends Model
 
         if (count($arr_glob) == 1) {
             $logo_name = basename($arr_glob[0]);
+
             return url($folder . $logo_name);
         }
     }

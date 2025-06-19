@@ -3,7 +3,6 @@
 namespace Hitech\IndonesiaLaravel\Models;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
-use Illuminate\Support\Facades\App;
 
 class Model extends EloquentModel
 {

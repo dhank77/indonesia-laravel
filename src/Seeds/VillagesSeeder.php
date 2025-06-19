@@ -4,7 +4,6 @@ namespace Hitech\IndonesiaLaravel\Seeds;
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 
 class VillagesSeeder extends Seeder
