@@ -2,11 +2,13 @@
 
 namespace IndonesiaLaravel\Models;
 
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Facades\App;
 
-class Model extends \Illuminate\Database\Eloquent\Model
+class Model extends EloquentModel
 {
     public $timestamps = false;
+
     protected $keyType = 'string';
 
     protected $searchableColumns = ['code', 'name'];
