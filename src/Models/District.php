@@ -2,48 +2,55 @@
 
 namespace Hitech\IndonesiaLaravel\Models;
 
+use Hitech\IndonesiaLaravel\Supports\IndonesiaConfig;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 class District extends Model
 {
+    protected IndonesiaConfig $config;
+
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
 
-        $this->table = config('indonesia.table_prefix') . (config('indonesia.pattern') === 'ID' ? 'kecamatan' : 'districts');
+        $this->config = app(IndonesiaConfig::class);
 
-        $codeColumn = config('indonesia.pattern') === 'ID' ? 'kode' : 'code';
-        $nameColumn = config('indonesia.pattern') === 'ID' ? 'nama' : 'name';
-        $cityNameColumn = config('indonesia.pattern') === 'ID' ? 'city.nama' : 'city.name';
+        $this->table = $this->config->tableName('kecamatan');
 
-        $this->searchableColumns = [$codeColumn, $nameColumn, $cityNameColumn];
+        $this->searchableColumns = [
+            $this->config->code,
+            $this->config->name,
+            'city.' . $this->config->name,
+            'city.province.' . $this->config->name,
+        ];
     }
 
-    public function city()
+    public function city(): BelongsTo
     {
-        $codeColumn = config('indonesia.pattern') === 'ID' ? 'kode' : 'code';
-        $cityCodeColumn = config('indonesia.pattern') === 'ID' ? 'kabupaten_kode' : 'city_code';
-
-        return $this->belongsTo('Hitech\\IndonesiaLaravel\\Models\\City', $cityCodeColumn, $codeColumn);
+        return $this->belongsTo(
+            'Hitech\\IndonesiaLaravel\\Models\\City',
+            $this->config->cityCode,
+            $this->config->code
+        );
     }
 
-    public function villages()
+    public function villages(): HasMany
     {
-        $codeColumn = config('indonesia.pattern') === 'ID' ? 'kode' : 'code';
-        $districtCodeColumn = config('indonesia.pattern') === 'ID' ? 'kecamatan_kode' : 'district_code';
-
-        return $this->hasMany('Hitech\\IndonesiaLaravel\\Models\\Village', $districtCodeColumn, $codeColumn);
+        return $this->hasMany(
+            'Hitech\\IndonesiaLaravel\\Models\\Village',
+            $this->config->districtCode,
+            $this->config->code
+        );
     }
 
     public function getCityNameAttribute()
     {
-        $nameColumn = config('indonesia.pattern') === 'ID' ? 'nama' : 'name';
-
-        return $this->city->{$nameColumn};
+        return $this->city?->{$this->config->name};
     }
 
     public function getProvinceNameAttribute()
     {
-        $nameColumn = config('indonesia.pattern') === 'ID' ? 'nama' : 'name';
-
-        return $this->city->province->{$nameColumn};
+        return $this->city?->province?->{$this->config->name};
     }
 }

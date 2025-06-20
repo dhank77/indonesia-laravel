@@ -2,58 +2,63 @@
 
 namespace Hitech\IndonesiaLaravel\Models;
 
+use Hitech\IndonesiaLaravel\Supports\IndonesiaConfig;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+
 class City extends Model
 {
+    protected IndonesiaConfig $config;
+
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
 
-        $this->table = config('indonesia.table_prefix') . (config('indonesia.pattern') === 'ID' ? 'kabupaten' : 'cities');
+        $this->config = app(IndonesiaConfig::class);
 
-        $codeColumn = config('indonesia.pattern') === 'ID' ? 'kode' : 'code';
-        $nameColumn = config('indonesia.pattern') === 'ID' ? 'nama' : 'name';
-        $provinceNameColumn = config('indonesia.pattern') === 'ID' ? 'province.nama' : 'province.name';
+        $this->table = $this->config->tableName('kabupaten');
 
-        $this->searchableColumns = [$codeColumn, $nameColumn, $provinceNameColumn];
+        $this->searchableColumns = [
+            $this->config->code,
+            $this->config->name,
+            'province.' . $this->config->name,
+        ];
     }
 
-    public function province()
+    public function province(): BelongsTo
     {
-        $codeColumn = config('indonesia.pattern') === 'ID' ? 'kode' : 'code';
-        $provinceCodeColumn = config('indonesia.pattern') === 'ID' ? 'provinsi_kode' : 'province_code';
-
-        return $this->belongsTo('Hitech\\IndonesiaLaravel\\Models\\Province', $provinceCodeColumn, $codeColumn);
+        return $this->belongsTo(
+            'Hitech\\IndonesiaLaravel\\Models\\Province',
+            $this->config->provinceCode,
+            $this->config->code
+        );
     }
 
-    public function districts()
+    public function districts(): HasMany
     {
-        $codeColumn = config('indonesia.pattern') === 'ID' ? 'kode' : 'code';
-        $cityCodeColumn = config('indonesia.pattern') === 'ID' ? 'kabupaten_kode' : 'city_code';
-
-        return $this->hasMany('Hitech\\IndonesiaLaravel\\Models\\District', $cityCodeColumn, $codeColumn);
+        return $this->hasMany(
+            'Hitech\\IndonesiaLaravel\\Models\\District',
+            $this->config->cityCode,
+            $this->config->code
+        );
     }
 
-    public function villages()
+    public function villages(): HasManyThrough
     {
-        $codeColumn = config('indonesia.pattern') === 'ID' ? 'kode' : 'code';
-        $cityCodeColumn = config('indonesia.pattern') === 'ID' ? 'kabupaten_kode' : 'city_code';
-        $districtCodeColumn = config('indonesia.pattern') === 'ID' ? 'kecamatan_kode' : 'district_code';
-
         return $this->hasManyThrough(
             'Hitech\\IndonesiaLaravel\\Models\\Village',
             'Hitech\\IndonesiaLaravel\\Models\\District',
-            $cityCodeColumn,
-            $districtCodeColumn,
-            $codeColumn,
-            $codeColumn
+            $this->config->cityCode,
+            $this->config->districtCode,
+            $this->config->code,
+            $this->config->code
         );
     }
 
     public function getProvinceNameAttribute()
     {
-        $nameColumn = config('indonesia.pattern') === 'ID' ? 'nama' : 'name';
-
-        return $this->province->{$nameColumn};
+        return $this->province?->{$this->config->name};
     }
 
     public function getLogoPathAttribute()
@@ -62,7 +67,7 @@ class City extends Model
         $id = $this->getAttributeValue('id');
         $arr_glob = glob(public_path() . '/' . $folder . $id . '.*');
 
-        if (count($arr_glob) == 1) {
+        if (count($arr_glob) === 1) {
             $logo_name = basename($arr_glob[0]);
 
             return url($folder . $logo_name);
