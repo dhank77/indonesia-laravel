@@ -10,7 +10,7 @@
 
 **Package Laravel untuk data wilayah Indonesia terlengkap dan terbaru**
 
-*Data terbaru daerah-daerah di Indonesia termasuk 38 provinsi, kabupaten/kota, kecamatan, dan desa/kelurahan*
+*Data terbaru 2025 sesuai kemendagri No. 300.2.2-2138 Tahun 2025, data daerah-daerah di Indonesia termasuk 38 provinsi, kabupaten/kota, kecamatan, dan desa/kelurahan*
 
 </div>
 
