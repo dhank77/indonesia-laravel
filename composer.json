@@ -27,7 +27,7 @@
     }
   },
   "require": {
-    "php": "^8.1",
+    "php": ">=8.1",
     "illuminate/support": "^12.19",
     "illuminate/console": "^12.19",
     "illuminate/database": "^12.19"
