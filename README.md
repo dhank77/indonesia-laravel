@@ -208,6 +208,34 @@ php artisan vendor:publish --tag=config
 php artisan vendor:publish --tag=migrations
 ```
 
+## ✅ Menjalankan Test
+
+Package ini menggunakan **PHPUnit** bersama **Orchestra Testbench** agar bisa diuji seperti dalam konteks aplikasi Laravel.
+
+### Siapkan konfigurasi test di `phpunit.xml`
+```xml
+<php>
+    <env name="DB_CONNECTION" value="pgsql"/>
+    <env name="DB_HOST" value="localhost"/>
+    <env name="DB_PORT" value="5432"/>
+    <env name="DB_DATABASE" value="indo"/>
+    <env name="DB_USERNAME" value="user"/>
+    <env name="DB_PASSWORD" value="pw"/>
+</php>
+```
+
+### Jalankan test dengan PHPUnit
+
+```bash
+vendor/bin/phpunit
+```
+Atau jika sudah install global PHPUnit:
+```bash
+phpunit
+```
+
+
+
 ## 📋 Requirements
 
 - PHP ^8.1

@@ -2,47 +2,51 @@
 
 namespace Hitech\IndonesiaLaravel\Models;
 
+use Hitech\IndonesiaLaravel\Supports\IndonesiaConfig;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 class Village extends Model
 {
+    protected IndonesiaConfig $config;
+
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
 
-        $this->table = config('indonesia.table_prefix') . (config('indonesia.pattern') === 'ID' ? 'kelurahan' : 'villages');
+        $this->config = app(IndonesiaConfig::class);
 
-        $codeColumn = config('indonesia.pattern') === 'ID' ? 'kode' : 'code';
-        $nameColumn = config('indonesia.pattern') === 'ID' ? 'nama' : 'name';
-        $districtNameColumn = config('indonesia.pattern') === 'ID' ? 'district.nama' : 'district.name';
+        $this->table = $this->config->tableName('kelurahan');
 
-        $this->searchableColumns = [$codeColumn, $nameColumn, $districtNameColumn];
+        $this->searchableColumns = [
+            $this->config->code,
+            $this->config->name,
+            'district.' . $this->config->name,
+            'district.city.' . $this->config->name,
+            'district.city.province.' . $this->config->name,
+        ];
     }
 
-    public function district()
+    public function district(): BelongsTo
     {
-        $codeColumn = config('indonesia.pattern') === 'ID' ? 'kode' : 'code';
-        $districtCodeColumn = config('indonesia.pattern') === 'ID' ? 'kecamatan_kode' : 'district_code';
-
-        return $this->belongsTo('Hitech\\IndonesiaLaravel\\Models\\District', $districtCodeColumn, $codeColumn);
+        return $this->belongsTo(
+            'Hitech\\IndonesiaLaravel\\Models\\District',
+            $this->config->districtCode,
+            $this->config->code
+        );
     }
 
     public function getDistrictNameAttribute()
     {
-        $nameColumn = config('indonesia.pattern') === 'ID' ? 'nama' : 'name';
-
-        return $this->district->{$nameColumn};
+        return $this->district?->{$this->config->name};
     }
 
     public function getCityNameAttribute()
     {
-        $nameColumn = config('indonesia.pattern') === 'ID' ? 'nama' : 'name';
-
-        return $this->district->city->{$nameColumn};
+        return $this->district?->city?->{$this->config->name};
     }
 
     public function getProvinceNameAttribute()
     {
-        $nameColumn = config('indonesia.pattern') === 'ID' ? 'nama' : 'name';
-
-        return $this->district->city->province->{$nameColumn};
+        return $this->district?->city?->province?->{$this->config->name};
     }
 }

@@ -6,32 +6,40 @@ use Hitech\IndonesiaLaravel\Models\City;
 use Hitech\IndonesiaLaravel\Models\District;
 use Hitech\IndonesiaLaravel\Models\Province;
 use Hitech\IndonesiaLaravel\Models\Village;
+use Hitech\IndonesiaLaravel\Supports\IndonesiaConfig;
 use Illuminate\Database\Eloquent\Collection;
 
 class IndonesiaService
 {
     protected $search;
-    protected $provinceCodeName;
-    protected $cityCodeName;
-    protected $districtCodeName;
-    protected $villageCodeName;
 
-    public function __construct()
+    private readonly string $provinceCodeName;
+    private readonly string $cityCodeName;
+    private readonly string $districtCodeName;
+    private readonly string $villageCodeName;
+    private readonly string $code;
+    private readonly string $name;
+
+    public function __construct(
+        private readonly IndonesiaConfig $config
+    )
     {
-        $this->provinceCodeName = config('indonesia.pattern') === 'ID' ? 'kode_provinsi' : 'province_code';
-        $this->cityCodeName = config('indonesia.pattern') === 'ID' ? 'kode_kabupaten' : 'city_code';
-        $this->districtCodeName = config('indonesia.pattern') === 'ID' ? 'kode_kecamatan' : 'district_code';
-        $this->villageCodeName = config('indonesia.pattern') === 'ID' ? 'kode_desa' : 'village_code';
+        $this->provinceCodeName = $config->provinceCode;
+        $this->cityCodeName = $config->cityCode;
+        $this->districtCodeName = $config->districtCode;
+        $this->villageCodeName = $config->villageCode;
+        $this->code = $config->code;
+        $this->name = $config->name;
     }
 
-    public function search($location)
+    public function search($location): static
     {
         $this->search = strtoupper($location);
 
         return $this;
     }
 
-    public function all()
+    public function all(): \Illuminate\Support\Collection
     {
         $result = collect([]);
 
@@ -123,7 +131,7 @@ class IndonesiaService
 
     public function findProvince($provinceId, $with = null)
     {
-        $with = (array) $with;
+        $with = (array)$with;
 
         if ($with) {
             $withVillages = array_search('villages', $with);
@@ -146,7 +154,7 @@ class IndonesiaService
 
     public function findCity($cityId, $with = null)
     {
-        $with = (array) $with;
+        $with = (array)$with;
 
         if ($with) {
             return City::with($with)->find($cityId);
@@ -157,7 +165,7 @@ class IndonesiaService
 
     public function findDistrict($districtId, $with = null)
     {
-        $with = (array) $with;
+        $with = (array)$with;
 
         if ($with) {
             $withProvince = array_search('province', $with);
@@ -180,7 +188,7 @@ class IndonesiaService
 
     public function findVillage($villageId, $with = null)
     {
-        $with = (array) $with;
+        $with = (array)$with;
 
         if ($with) {
             $withCity = array_search('city', $with);
