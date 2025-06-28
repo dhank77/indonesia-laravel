@@ -29,13 +29,12 @@ class Model extends EloquentModel
      * and can also apply conditions to related models using dot notation
      * (e.g., 'cities.name', 'districts.code').
      *
-     * @param Builder $query The query builder instance.
-     * @param string|null $keyword The keyword to search for.
-     * @return Builder
+     * @param  Builder  $query  The query builder instance.
+     * @param  string|null  $keyword  The keyword to search for.
      */
     public function scopeSearch(Builder $query, ?string $keyword): Builder
     {
-        if (!$keyword || empty($this->searchableColumns)) {
+        if (! $keyword || empty($this->searchableColumns)) {
             return $query;
         }
 
@@ -55,10 +54,10 @@ class Model extends EloquentModel
      * This method helps apply search filters on related models
      * by walking through the dot-notated relationship path.
      *
-     * @param Builder $query The query builder.
-     * @param array $segments The parts of the dot-notated field.
-     * @param string $search The search keyword.
-     * @param string $operator The SQL operator to use (LIKE or ILIKE).
+     * @param  Builder  $query  The query builder.
+     * @param  array  $segments  The parts of the dot-notated field.
+     * @param  string  $search  The search keyword.
+     * @param  string  $operator  The SQL operator to use (LIKE or ILIKE).
      */
     protected function buildNestedConditions(Builder $query, array $segments, string $search, string $operator): void
     {
@@ -74,5 +73,4 @@ class Model extends EloquentModel
             });
         }
     }
-
 }
