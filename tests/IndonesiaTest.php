@@ -9,7 +9,6 @@ use Hitech\IndonesiaLaravel\Models\Village;
 use Hitech\IndonesiaLaravel\Services\IndonesiaService;
 use Hitech\IndonesiaLaravel\Supports\IndonesiaConfig;
 use PHPUnit\Framework\Attributes\Test;
-use Tests\TestCase;
 
 class IndonesiaTest extends TestCase
 {

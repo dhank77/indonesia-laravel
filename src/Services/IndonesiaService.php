@@ -22,8 +22,7 @@ class IndonesiaService
 
     public function __construct(
         private readonly IndonesiaConfig $config
-    )
-    {
+    ) {
         $this->provinceCodeName = $config->provinceCode;
         $this->cityCodeName = $config->cityCode;
         $this->districtCodeName = $config->districtCode;
@@ -131,7 +130,7 @@ class IndonesiaService
 
     public function findProvince($provinceId, $with = null)
     {
-        $with = (array)$with;
+        $with = (array) $with;
 
         if ($with) {
             $withVillages = array_search('villages', $with);
@@ -154,7 +153,7 @@ class IndonesiaService
 
     public function findCity($cityId, $with = null)
     {
-        $with = (array)$with;
+        $with = (array) $with;
 
         if ($with) {
             return City::with($with)->find($cityId);
@@ -165,7 +164,7 @@ class IndonesiaService
 
     public function findDistrict($districtId, $with = null)
     {
-        $with = (array)$with;
+        $with = (array) $with;
 
         if ($with) {
             $withProvince = array_search('province', $with);
@@ -188,7 +187,7 @@ class IndonesiaService
 
     public function findVillage($villageId, $with = null)
     {
-        $with = (array)$with;
+        $with = (array) $with;
 
         if ($with) {
             $withCity = array_search('city', $with);

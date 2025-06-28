@@ -2,12 +2,12 @@
 
 namespace Hitech\IndonesiaLaravel\Seeds;
 
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 use Hitech\IndonesiaLaravel\Models\City;
 use Hitech\IndonesiaLaravel\Models\District;
 use Hitech\IndonesiaLaravel\Models\Province;
 use Hitech\IndonesiaLaravel\Models\Village;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,20 +20,36 @@ class DatabaseSeeder extends Seeder
     {
         $this->reset();
 
-        $this->call(ProvincesSeeder::class);
-        $this->call(CitiesSeeder::class);
-        $this->call(DistrictsSeeder::class);
-        $this->call(VillagesSeeder::class);
+        if (config('indonesia.province.enabled')) {
+            $this->call(ProvincesSeeder::class);
+        }
+        if (config('indonesia.city.enabled')) {
+            $this->call(CitiesSeeder::class);
+        }
+        if (config('indonesia.district.enabled')) {
+            $this->call(DistrictsSeeder::class);
+        }
+        if (config('indonesia.village.enabled')) {
+            $this->call(VillagesSeeder::class);
+        }
     }
 
     public function reset()
     {
         Schema::disableForeignKeyConstraints();
 
-        Village::truncate();
-        District::truncate();
-        City::truncate();
-        Province::truncate();
+        if (config('indonesia.village.enabled')) {
+            Village::truncate();
+        }
+        if (config('indonesia.district.enabled')) {
+            District::truncate();
+        }
+        if (config('indonesia.city.enabled')) {
+            City::truncate();
+        }
+        if (config('indonesia.province.enabled')) {
+            Province::truncate();
+        }
 
         Schema::disableForeignKeyConstraints();
     }
