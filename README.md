@@ -67,11 +67,19 @@ return [
     // Pattern bahasa: 'ID' untuk Indonesia, 'EN' untuk English
     'pattern' => 'ID',
     
-    // Enable/disable setiap modul (cooming soon)
-    'province' => ['enabled' => true],
-    'city' => ['enabled' => true],
-    'district' => ['enabled' => true],
-    'village' => ['enabled' => true],
+    // Enable/disable setiap modul
+    'data_location' => [
+        'province' => true,
+        'city' => true,
+        'district' => true,
+        'village' => true,
+
+        // Filter berdasarkan wilayah induk (opsional)
+        'only' => [
+            'type' => '', // Bisa: province, city, district, villages
+            'code' => '', // Kode wilayah sesuai tipe di atas bisa lihat kodenya disini (https://kodewilayah.id)
+        ],
+    ],
 ];
 ```
 

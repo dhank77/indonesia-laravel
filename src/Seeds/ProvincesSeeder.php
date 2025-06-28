@@ -19,11 +19,19 @@ class ProvincesSeeder extends Seeder
             $header = ['code', 'name'];
         }
         $data = $csv->csv_to_array($file, $header);
-        $data = array_map(function ($arr) use ($now) {
-            return $arr + ['created_at' => $now, 'updated_at' => $now];
-        }, $data);
+        if (config('indonesia.data_location.only.type') === 'province') {
+            $results = array_filter($data, function ($item) {
+                $code = config('indonesia.pattern') === 'ID' ? 'kode' : 'code';
+                return $item[$code] === config('indonesia.data_location.only.code');
+            });
+            $results = reset($results) + ['created_at' => $now, 'updated_at' => $now];
+        } else {
+            $results = array_map(function ($arr) use ($now) {
+                return $arr + ['created_at' => $now, 'updated_at' => $now];
+            }, $data);
+        }
 
         $tableName = config('indonesia.table_prefix') . (config('indonesia.pattern') === 'ID' ? 'provinsi' : 'provinces');
-        DB::table($tableName)->insertOrIgnore($data);
+        DB::table($tableName)->insertOrIgnore($results);
     }
 }

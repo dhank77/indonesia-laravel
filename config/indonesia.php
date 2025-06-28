@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Prefix ini akan ditambahkan ke semua nama tabel yang digunakan oleh
-    | package ini. Misalnya: 'indonesia_provinces', 'indonesia_cities', dst.
+    | package ini. Contoh hasil: 'indonesia_provinces', 'indonesia_cities', dst.
     |
     */
     'table_prefix' => 'indonesia_',
@@ -18,35 +18,47 @@ return [
     | Pola Bahasa Data
     |--------------------------------------------------------------------------
     |
-    | Tentukan pola bahasa data yang digunakan:
-    | - 'ID' untuk data dalam Bahasa Indonesia
-    | - 'EN' untuk data dalam Bahasa Inggris
+    | Tentukan pola bahasa data yang akan digunakan untuk data wilayah:
+    | - 'ID' : Bahasa Indonesia
+    | - 'EN' : Bahasa Inggris
     |
     */
     'pattern' => 'ID',
 
     /*
     |--------------------------------------------------------------------------
-    | Pengaturan Modul Wilayah
+    | Pengaturan Data Wilayah
     |--------------------------------------------------------------------------
     |
-    | Aktifkan atau nonaktifkan bagian-bagian wilayah tertentu sesuai kebutuhan.
-    | Jika diset ke false, maka data dari wilayah tersebut tidak akan dimuat.
+    | Kamu dapat mengaktifkan/menonaktifkan level data wilayah tertentu
+    | seperti provinsi, kota/kabupaten, kecamatan, dan desa/kelurahan.
+    |
+    | - Jika salah satu wilayah (misal: 'province') diset ke `false`, maka data
+    |   pada level tersebut tidak akan dimuat, tetapi data level di bawahnya
+    |   tetap bisa dimuat berdasarkan filter di bagian "only".
+    |
+    | - Bagian "only" memungkinkan kamu memuat hanya data turunan dari wilayah
+    |   tertentu saja. Misalnya:
+    |
+    |   'only' => [
+    |       'type' => 'province',
+    |       'code' => '76',
+    |   ]
+    |
+    |   Maka hanya data provinsi dengan kode 76 dan semua data kota, kecamatan,
+    |   serta desa yang berada di dalamnya yang akan dimuat.
     |
     */
-    'province' => [
-        'enabled' => true,
-    ],
+    'data_location' => [
+        'province' => true,
+        'city' => true,
+        'district' => true,
+        'village' => true,
 
-    'city' => [
-        'enabled' => true,
-    ],
-
-    'district' => [
-        'enabled' => true,
-    ],
-
-    'village' => [
-        'enabled' => true,
+        // Filter berdasarkan wilayah induk (opsional)
+        'only' => [
+            'type' => '', // Bisa: province, city, district, villages
+            'code' => '', // Kode wilayah sesuai tipe di atas bisa lihat kodenya disini (https://kodewilayah.id)
+        ],
     ],
 ];

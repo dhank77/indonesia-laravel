@@ -18,7 +18,7 @@ class IndonesiaConfig
     public function tableName(string $base): string
     {
         if ($this->pattern === 'ID') {
-            return $this->tablePrefix . '_' . $base;
+            return $this->tablePrefix . $base;
         }
 
         return $this->tablePrefix . match ($base) {

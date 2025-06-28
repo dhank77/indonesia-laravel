@@ -20,16 +20,16 @@ class DatabaseSeeder extends Seeder
     {
         $this->reset();
 
-        if (config('indonesia.province.enabled')) {
+        if (config('indonesia.data_location.province')) {
             $this->call(ProvincesSeeder::class);
         }
-        if (config('indonesia.city.enabled')) {
+        if (config('indonesia.data_location.city')) {
             $this->call(CitiesSeeder::class);
         }
-        if (config('indonesia.district.enabled')) {
+        if (config('indonesia.data_location.district')) {
             $this->call(DistrictsSeeder::class);
         }
-        if (config('indonesia.village.enabled')) {
+        if (config('indonesia.data_location.village')) {
             $this->call(VillagesSeeder::class);
         }
     }
@@ -38,16 +38,16 @@ class DatabaseSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
 
-        if (config('indonesia.village.enabled')) {
+        if (config('indonesia.data_location.village')) {
             Village::truncate();
         }
-        if (config('indonesia.district.enabled')) {
+        if (config('indonesia.data_location.district')) {
             District::truncate();
         }
-        if (config('indonesia.city.enabled')) {
+        if (config('indonesia.data_location.city')) {
             City::truncate();
         }
-        if (config('indonesia.province.enabled')) {
+        if (config('indonesia.data_location.province')) {
             Province::truncate();
         }
 
