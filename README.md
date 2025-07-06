@@ -274,9 +274,19 @@ Project ini menggunakan [MIT License](LICENSE).
 **SyahrulBhudiF**
 - Github: https://github.com/SyahrulBhudiF
 
+---
+
+## 📌 **Sumber Data**  
+- **Wilayah**  
+  - Data wilayah Indonesia 2025 berasal dari [Yonatan Yusak Lestari](https://github.com/yonatanyl) bisa lihat di [repo ini](https://github.com/yonatanyl/KODE-WILAYAH-KEPMENDAGRI-2025) yang bersumber langsung dari Kepmendagri 2025.  
+  - Data wilayah Indonesia sebelumnya (< 2025) berasal dari github/api yang saya sudah lupa untuk cantumkan jika merasa itu data anda dengan senang hati kontak saya di [linkedin](https://www.linkedin.com/in/m-hamdani-ilham-latjoro/) atau [email](mailto:d41113512@gmail.com) ataupun buat issue di repo ini.
+- **Kode Pos (Cooming soon)**  
+  > 📨 **Rencana ke depan:** Data **kode pos** akan ditambahkan, insyaAllah, dengan sumber dari [nomor.net](https://nomor.net).
+
+---
+
 ## 🙏 Acknowledgments
 
-- Data wilayah Indonesia dari berbagai sumber resmi
 - Laravel Community
 - Semua kontributor yang telah membantu
 
