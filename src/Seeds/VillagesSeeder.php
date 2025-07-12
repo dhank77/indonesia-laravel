@@ -12,11 +12,11 @@ class VillagesSeeder extends Seeder
     {
         $now = Carbon::now();
         $csv = new CsvtoArray;
-        $file = __DIR__ . '/../../resources/csv/villages.csv';
+        $file = __DIR__ . '/../../resources/csv/villages_with_postcode.csv';
         if (config('indonesia.pattern') === 'ID') {
-            $header = ['kode', 'kode_kecamatan', 'nama'];
+            $header = ['kode', 'kode_kecamatan', 'nama', 'kode_pos'];
         } else {
-            $header = ['code', 'district_code', 'name'];
+            $header = ['code', 'district_code', 'name', 'postal_code'];
         }
         $data = $csv->csv_to_array($file, $header);
 
