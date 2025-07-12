@@ -12,6 +12,7 @@ return new class extends Migration
             $tableName = config('indonesia.table_prefix') . (config('indonesia.pattern') === 'ID' ? 'kelurahan' : 'villages');
             $code = config('indonesia.pattern') === 'ID' ? 'kode' : 'code';
             $name = config('indonesia.pattern') === 'ID' ? 'nama' : 'name';
+            $postalCode = config('indonesia.pattern') === 'ID' ? 'kode_pos' : 'postal_code';
 
             if (config('indonesia.data_location.district')) {
                 $districtTable = config('indonesia.table_prefix') . (config('indonesia.pattern') === 'ID' ? 'kecamatan' : 'districts');
@@ -21,7 +22,7 @@ return new class extends Migration
                 $districtCode = null;
             }
 
-            Schema::create($tableName, function (Blueprint $table) use ($code, $name, $districtCode, $districtTable) {
+            Schema::create($tableName, function (Blueprint $table) use ($code, $name, $districtCode, $districtTable, $postalCode) {
                 $table->bigIncrements('id');
                 $table->char($code, 10)->unique();
                 if (config('indonesia.data_location.district')) {
@@ -29,6 +30,7 @@ return new class extends Migration
                 }
                 $table->string($name, 255);
                 $table->text('meta')->nullable();
+                $table->string($postalCode, 10)->nullable();
                 $table->timestamps();
 
                 if (config('indonesia.data_location.district')) {
